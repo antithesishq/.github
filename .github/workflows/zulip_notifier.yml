@@ -1,0 +1,34 @@
+name: Zulip Notification Bot
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  post-to-zulip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        id: generate-msg
+        env:
+          SHA: '${{env.parentSHA}}'
+        with:
+          script: |
+            const script = require('./src/genertate_msg.js')
+            await script({github, context, core})
+
+      - name: Send a stream message
+        uses: zulip/github-actions-zulip/send-message@v1
+        with:
+          api-key: ${{ secrets.ZULIP_API_KEY }}
+          email: ${{ secrets.ZULIP_BOT_EMAIL }}
+          organization-url: ${{ secrets.ZULIP_ORG_URL }}
+          to: "Commits"
+          type: "stream"
+          topic: {{ steps.generate-msg.outputs.topic }}
+          content: {{ steps.generate-msg.outputs.msg }}
