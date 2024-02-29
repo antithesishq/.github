@@ -2,7 +2,6 @@ name: Zulip Notification Bot
 
 on:
   push:
-  workflow_call:
 
 permissions:
   contents: read
