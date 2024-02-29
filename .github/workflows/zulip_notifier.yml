@@ -17,7 +17,7 @@ jobs:
         id: generate-msg
         with:
           script: |
-            const script = require('src/genertate_msg.js')
+            const script = require('./src/genertate_msg.js')
             await script({github, context, core})
 
       - name: Send a stream message
