@@ -28,9 +28,7 @@ module.exports = async ({github, context, core}) => {
     }
     const result = await github.graphql(query, variables)
 
-    let create_card = true
     let review_url = context.payload.compare
-    let title = "Review commit " + commit_sha
 
     const pullRequests = result.repository.commit.associatedPullRequests.edges
     if (pullRequests && pullRequests.length > 0) {
@@ -48,13 +46,14 @@ module.exports = async ({github, context, core}) => {
       })
 
       if (pullrequest_result) {
-
-        title = "Review pull request " + pullrequest_id
         review_url = pullrequest_result.data.html_url
-
       }
     }
 
-    core.setOutput("topic", "youhana-test");
+    // - brian.lagoda feature-proxy-restarts-on-fatals | f77c8a53de09 Merge with default
+
+    console.log(context)
+
+    core.setOutput("topic", context.repo.repo);
     core.setOutput("msg", "The message from the JS script");
   }
