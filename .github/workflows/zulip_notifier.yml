@@ -1,7 +1,6 @@
 name: Zulip Notification Bot
 
 on:
-  pull_request:
   push:
 
 permissions:
