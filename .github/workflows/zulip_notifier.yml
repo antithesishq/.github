@@ -28,5 +28,5 @@ jobs:
           organization-url: ${{ secrets.ZULIP_ORG_URL }}
           to: "Commits"
           type: "stream"
-          topic: {{ steps.generate-msg.outputs.topic }}
-          content: {{ steps.generate-msg.outputs.msg }}
+          topic: "youhana-test"
+          content: "youhana test content"
