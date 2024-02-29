@@ -55,6 +55,6 @@ module.exports = async ({github, context, core}) => {
       }
     }
 
-    core.setOutput("topic", "youhana-test topic");
-    core.setOutput("msg", "The message");
+    core.setOutput("topic", "youhana-test");
+    core.setOutput("msg", "The message from the JS script");
   }
